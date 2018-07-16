@@ -1,18 +1,18 @@
-package _1
+package main
 
 import (
     "fmt"
 )
 
 /**
- * DESCRIPTION: n皇后问题，解题思路为使用一个array记录每行皇后的位置，然后计算出来目标行可以使用的位置
+ * DESCRIPTION: n皇后问题，解题思路为使用一个array记录每行皇后的位置，然后计算出来目标行可以使用的位置,对某些算法进行了优化
  *
  * @author rd
  * @create 2018-07-15 19:08
  **/
 
 func main() {
-    items := solveNQueens(4)
+    items := solveNQueens(15)
     for _, v := range items {
         for _, s := range v {
             fmt.Println(s)
@@ -62,7 +62,7 @@ func cp(positions [][2]int) [][2]int {
 
 func fill(positions [][2]int, n int, res *[][][2]int) {
     if n == len(positions) {
-        *res = append(*res, positions)
+        *res = append(*res, cp(positions))
         return
     }
     columns := getColumns(positions, n)
@@ -70,9 +70,9 @@ func fill(positions [][2]int, n int, res *[][][2]int) {
         return
     }
     for _, column := range columns {
-        p := cp(positions)
-        p[n] = [2]int{n, column}
-        fill(p, n+1, res)
+        positions[n] = [2]int{n, column}
+        fill(positions, n+1, res)
+        positions[n] = [2]int{-1, -1}
     }
 }
 
