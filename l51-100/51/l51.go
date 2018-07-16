@@ -2,6 +2,7 @@ package main
 
 import (
     "fmt"
+    "time"
 )
 
 /**
@@ -12,7 +13,11 @@ import (
  **/
 
 func main() {
+    start := time.Now()
     items := solveNQueens(15)
+    fmt.Println(time.Now().Sub(start).String())
+    fmt.Println(len(items))
+    return
     for _, v := range items {
         for _, s := range v {
             fmt.Println(s)
